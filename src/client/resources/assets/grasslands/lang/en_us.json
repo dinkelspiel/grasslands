@@ -1,0 +1,54 @@
+{
+  "title.grasslands.config": "Grasslands Configuration",
+
+  "category.grasslands.general": "General",
+  "category.grasslands.color": "Color",
+  "category.grasslands.jitter": "Jitter",
+  "category.grasslands.wind": "Wind",
+  "category.grasslands.heights": "Heights",
+
+  "option.grasslands.enableBlades": "Enable Grass Blades",
+  "tooltip.grasslands.enableBlades": "Master toggle for the billboard grass blades.",
+
+  "option.grasslands.scanRadius": "Scan Radius",
+  "tooltip.grasslands.scanRadius": "How far (in blocks) around the player to scan for grass blocks.",
+
+  "option.grasslands.colorLighten": "Lighten Multiplier",
+  "tooltip.grasslands.colorLighten": "Color multiplier for the lighter tier (1.0 = no change).",
+
+  "option.grasslands.colorDarken": "Darken Multiplier",
+  "tooltip.grasslands.colorDarken": "Color multiplier for the darker tier (1.0 = no change).",
+
+  "option.grasslands.colorNoiseFrequency": "Color Noise Frequency",
+  "tooltip.grasslands.colorNoiseFrequency": "Frequency of the color noise. Smaller values = larger patches.",
+
+  "option.grasslands.colorNoiseSeed": "Color Noise Seed",
+  "tooltip.grasslands.colorNoiseSeed": "Seed for the color noise.",
+
+  "option.grasslands.jitterRangePixels": "Jitter Range (px)",
+  "tooltip.grasslands.jitterRangePixels": "Maximum positional jitter in pixels.",
+
+  "option.grasslands.jitterNoiseFrequency": "Jitter Noise Frequency",
+  "tooltip.grasslands.jitterNoiseFrequency": "Frequency of the jitter noise.",
+
+  "option.grasslands.jitterNoiseSeed": "Jitter Noise Seed",
+  "tooltip.grasslands.jitterNoiseSeed": "Seed for the jitter noise.",
+
+  "option.grasslands.windStrengthPixels": "Wind Strength (px)",
+  "tooltip.grasslands.windStrengthPixels": "Maximum wind sway in pixels.",
+
+  "option.grasslands.windSpeed": "Wind Speed",
+  "tooltip.grasslands.windSpeed": "Wind animation speed multiplier.",
+
+  "option.grasslands.windNoiseFrequency": "Wind Noise Frequency",
+  "tooltip.grasslands.windNoiseFrequency": "Spatial frequency of wind gusts. Smaller = larger gusts.",
+
+  "option.grasslands.windNoiseSeed": "Wind Noise Seed",
+  "tooltip.grasslands.windNoiseSeed": "Seed for the wind noise.",
+
+  "option.grasslands.heightBoostNormalPixels": "Normal Tier Height Boost (px)",
+  "tooltip.grasslands.heightBoostNormalPixels": "Extra height in pixels for the normal color tier.",
+
+  "option.grasslands.heightBoostDarkerPixels": "Darker Tier Height Boost (px)",
+  "tooltip.grasslands.heightBoostDarkerPixels": "Extra height in pixels for the darker color tier."
+}
