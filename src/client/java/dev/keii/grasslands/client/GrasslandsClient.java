@@ -1,7 +1,7 @@
 package dev.keii.grasslands.client;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.block.Blocks;
 
@@ -14,14 +14,15 @@ public class GrasslandsClient implements ClientModInitializer {
         GrassColorUtil.applyConfig();
         BillboardRenderer.register();
 
-        ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> {
+        BlockColorRegistry.register((state, level, pos, tintValues) -> {
             if (level == null || pos == null) {
-                return 0x7CBD6B; // fallback vanilla green
+                tintValues.add(0x7CBD6B); // fallback vanilla green
+                return;
             }
 
             int base = BiomeColors.getAverageGrassColor(level, pos);
             int tier = GrassColorUtil.colorTier(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f);
-            return GrassColorUtil.applyTier(base, tier);
+            tintValues.add(GrassColorUtil.applyTier(base, tier));
         }, Blocks.GRASS_BLOCK);
     }
 }

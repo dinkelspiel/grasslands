@@ -11,6 +11,7 @@ base {
 }
 
 loom {
+    noIntermediateMappings()
     splitEnvironmentSourceSets()
 
     mods {
@@ -18,6 +19,10 @@ loom {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
+    }
+
+    runs.configureEach {
+        property "fabric.runtimeMappingNamespace", "named"
     }
 }
 
@@ -35,15 +40,17 @@ repositories {
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
+    mappings loom.layered {
+        mappings file("mappings/${project.minecraft_version}.tiny")
+    }
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modApi("me.shedaniel.cloth:cloth-config-fabric:21.11.153") {
+    modApi("me.shedaniel.cloth:cloth-config-fabric:26.1.154") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modApi "com.terraformersmc:modmenu:17.0.0-beta.2"
+    modApi "com.terraformersmc:modmenu:18.0.0-beta.1"
 }
 
 processResources {
@@ -76,10 +83,6 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
 }
 
 jar {

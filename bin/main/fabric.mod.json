@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "grasslands",
+  "version": "${version}",
+  "name": "Grasslands",
+  "description": "Fabric client-side mod that improves vanilla grass blocks with extra grass blades",
+  "authors": ["dinkelspiel"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/grasslands/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": ["dev.keii.grasslands.client.GrasslandsDataGenerator"],
+    "client": ["dev.keii.grasslands.client.GrasslandsClient"],
+    "main": ["dev.keii.grasslands.Grasslands"],
+    "modmenu": ["dev.keii.grasslands.client.GrasslandsModMenuIntegration"]
+  },
+  "mixins": [
+    "grasslands.mixins.json",
+    {
+      "config": "grasslands.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

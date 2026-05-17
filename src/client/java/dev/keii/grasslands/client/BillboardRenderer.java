@@ -2,8 +2,8 @@ package dev.keii.grasslands.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -53,18 +53,18 @@ public class BillboardRenderer {
 
     public static void register() {
         applyConfig();
-        WorldRenderEvents.AFTER_ENTITIES.register(BillboardRenderer::render);
+        LevelRenderEvents.END_MAIN.register(BillboardRenderer::render);
     }
 
-    private static void render(WorldRenderContext context) {
+    private static void render(LevelRenderContext context) {
         GrasslandsConfig cfg = GrasslandsConfig.get();
 
         if (!cfg.enableBlades)
             return;
 
         Camera camera = context.gameRenderer().getMainCamera();
-        PoseStack poseStack = context.matrices();
-        MultiBufferSource consumers = context.consumers();
+        PoseStack poseStack = context.poseStack();
+        MultiBufferSource consumers = context.bufferSource();
         ClientLevel level = Minecraft.getInstance().level;
 
         if (consumers == null || level == null)
@@ -72,7 +72,7 @@ public class BillboardRenderer {
 
         Vec3 camPos = camera.position();
         BlockPos playerPos = camera.blockPosition();
-        VertexConsumer buffer = consumers.getBuffer(RenderTypes.entityCutoutNoCull(TEXTURE));
+        VertexConsumer buffer = consumers.getBuffer(RenderTypes.entityCutout(TEXTURE));
         float half = 0.5f;
 
         // Wind: diagonal time offset so gusts scroll across the world
@@ -106,7 +106,7 @@ public class BillboardRenderer {
                     if (aboveState.isSolidRender() || aboveState.is(Blocks.SNOW))
                         continue;
 
-                    int light = LevelRenderer.getLightColor(level, mutablePos);
+                    int light = LevelRenderer.getLightCoords(level, mutablePos);
                     mutablePos.set(x, y, z);
 
                     // Get biome grass color at this position
@@ -190,5 +190,7 @@ public class BillboardRenderer {
                 }
             }
         }
+
+        context.bufferSource().endBatch(RenderTypes.entityCutout(TEXTURE));
     }
 }
